@@ -1,0 +1,135 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+body.paused {
+  /* O user-select: none impede que o usuário selecione o texto da página. */
+  user-select: none;
+  -webkit-user-select: none;
+  /* O webkit-touch-callout: none impede que o navegador mostre o menu de contexto quando o usuário segura o dedo sobre um elemento. */
+  -webkit-touch-callout: none;
+  /* O text-size-adjust: none impede que o navegador ajuste o tamanho da fonte para melhorar a leitura. */
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  /* O touch-action: manipulation impede que o navegador execute ações padrões de toque, como o zoom. */
+  touch-action: manipulation;
+}
+
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#slide {
+  display: grid;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 800px;
+  background-color: #000;
+}
+
+#slide-elements {
+  display: grid;
+  grid-area: 1 / 1;
+}
+
+/* Fala com todos os elementos filhos de #slide-elements. */
+#slide-elements>* {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: none;
+}
+
+/* Fala com o elemento filho de #slide-elements que estiver com a classe active. */
+#slide-elements>.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#slide-controls {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+#slide-controls button:not(#slide-volume) {
+  opacity: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  z-index: 1;
+}
+
+#slide-volume {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  padding: 4px;
+  background-color: rgba(255, 255, 255, .2);
+  border: none;
+  z-index: 999;
+  display: flex;
+  border-radius: 4px;
+  pointer-events: all;
+}
+
+#slide-volume-muted {
+  display: none;
+}
+
+
+#slide-thumb {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Fala com o elemento filho de #slide-thumb que for um span. */
+#slide-thumb>span {
+  width: 100%;
+  display: block;
+  height: 4px;
+  background: rgba(255, 255, 255, .2);
+  margin: 5px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* Isola o elemento para que ele não seja afetado pela animação do elemento pai. */
+  isolation: isolate;
+}
+
+#slide-thumb .thumb-item.active {
+  display: block;
+  /* Herda a altura do elemento pai, no caso o span do #slide-thumb. */
+  height: inherit;
+  background: rgba(255, 255, 255, .9);
+  border-radius: 4px;
+  transform: translateX(-100%);
+  animation: thumb forwards linear running;
+}
+
+#slide-thumb .thumb-item.paused {
+  /* O animation-play-state está sendo usado para pausar a animação. */
+  animation-play-state: paused;
+
+}
+
+@keyframes thumb {
+  to {
+    /* Começa com o valor do transform definido aonde a animação for aplicada. */
+    transform: initial;
+  }
+}
