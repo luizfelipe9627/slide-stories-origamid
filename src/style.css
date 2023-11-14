@@ -46,6 +46,7 @@ h1 {
   overflow: hidden;
   margin: 0 auto;
   max-width: 800px;
+  height: 450px;
   background-color: #000;
 }
 
@@ -205,4 +206,10 @@ h1 {
 #file-name {
   font-size: 14px;
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  #slide {
+    height: 450px;
+  }
 }
