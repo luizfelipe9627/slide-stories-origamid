@@ -31,9 +31,6 @@ img,
 video {
   display: block;
   max-width: 100%;
-}
-
-video {
   max-height: 450px;
 }
 
