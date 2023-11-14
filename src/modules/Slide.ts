@@ -29,19 +29,13 @@ class Slide {
     this.slides = slides;
     this.controls = controls;
     this.time = time;
-
     this.timeout = null; // Está atribuindo o valor null para a propriedade timeout como padrão.
     this.pausedTimeout = null; // Está atribuindo o valor null para a propriedade pausedTimeout como padrão.
-
-    // Está fazendo que quando o usuário sair da página, o slide volte para aonde ele estava.
-    this.index = 0;
+    this.index = 0; // Está atribuindo o valor 0 para a propriedade index como padrão.
     this.slide = this.slides[this.index]; // Está atribuindo o valor do slide que está no index para a propriedade slide.
-
     this.paused = false; // Está atribuindo o valor false para a propriedade paused como padrão.
-
     this.thumbItems = null; // Está atribuindo o valor null para a propriedade thumbItems como padrão.
     this.thumb = null; // Está atribuindo o valor null para a propriedade thumb como padrão.
-
     this.volume = null; // Está atribuindo o valor null para a propriedade volume como padrão.
     this.volumeImage = null; // Está atribuindo o valor null para a propriedade volumeImage como padrão.
 
@@ -75,14 +69,14 @@ class Slide {
 
     // Se o slide for um elemento do tipo HTMLVideoElement executa o if que é uma type guard, se não for executa o else.
     if (this.slide instanceof HTMLVideoElement) {
-      this.autoVideo(this.slide); // Está chamando/executando o método autoVideo passando o slide como parâmetro.
+      this.autoVideo(this.slide); // Está executando o método autoVideo passando o slide como parâmetro.
 
       // Se o elemento volumeImage existir executa o if.
       if (this.volumeImage) {
         this.volumeImage.src = "./src/assets/volume-off.svg";
       }
     } else {
-      this.auto(this.time); // Está chamando/executando o método auto passando o tempo de troca de slide como parâmetro.
+      this.auto(this.time); // Está executando o método auto passando o tempo de troca de slide como parâmetro.
 
       // Se o elemento volume existir executa o if.
       if (this.volume) {
@@ -108,7 +102,7 @@ class Slide {
     video.addEventListener("playing", () => {
       // Para ocorrer somente uma vez, o if verifica se a variável firstPlay é true, se for executa o if.
       if (firstPlay) {
-        this.auto(video.duration * 1000); // Está chamando/executando o método auto responsável por fazer o slide trocar automaticamente após um tempo, passando o tempo de duração do vídeo como parâmetro para ele só trocar de slide quando o vídeo acabar.
+        this.auto(video.duration * 1000); // Está executando o método auto responsável por fazer o slide trocar automaticamente após um tempo, passando o tempo de duração do vídeo como parâmetro para ele só trocar de slide quando o vídeo acabar.
 
         firstPlay = false; // Está atribuindo o valor false para a variável firstPlay.
       }
@@ -155,7 +149,7 @@ class Slide {
 
     const prev = this.index > 0 ? this.index - 1 : this.slides.length - 1; // Está atribuindo o valor do index - 1 para a constante prev se o index for maior que 0, se não for maior, atribui o valor do tamanho do array de slides - 1, fazendo o slide voltar para o último.
 
-    this.show(prev); // Está chamando/executando o método show passando o resultado da constante prev como parâmetro fazendo o slide voltar para o anterior.
+    this.show(prev); // Está executando o método show passando o resultado da constante prev como parâmetro fazendo o slide voltar para o anterior.
   }
 
   // Criado um método chamado next, é responsável por fazer o slide avançar.
@@ -164,7 +158,7 @@ class Slide {
 
     const next = this.index + 1 < this.slides.length ? this.index + 1 : 0; // Está atribuindo o valor do index + 1 para a constante next se o index + 1 for menor que o tamanho do array de slides, se não for menor, atribui o valor 0, fazendo o slide voltar para o primeiro.
 
-    this.show(next); // Está chamando/executando o método show passando o index + 1 como parâmetro fazendo o slide avançar.
+    this.show(next); // Está executando o método show passando o index + 1 como parâmetro fazendo o slide avançar.
   }
 
   // Criado um método chamado pause, é responsável por pausar o slide.
@@ -242,9 +236,9 @@ class Slide {
 
     // Criado uma função chamada createAndAppendElement que recebe um elemento do tipo HTMLElement, é responsável por adicionar o elemento passado como parâmetro para o slide.
     const createAndAppendElement = (element: HTMLElement) => {
-      slideContainer.appendChild(element);
-      this.slides.push(element);
-      this.addThumbItemsNew();
+      slideContainer.appendChild(element); // Está tornando o elemento passado como filho do elemento slideContainer.
+      this.slides.push(element); // Está adicionando o elemento passado para o final do array de slides.
+      this.addThumbItemsNew(); // Está executando o método addThumbItemsNew responsável por adicionar o novo thumb do slide.
     };
 
     // Criado uma função chamada buttonClick, é responsável por adicionar o novo elemento ao slide.
@@ -259,14 +253,14 @@ class Slide {
           video.playsInline = true; // Está atribuindo o valor true para a propriedade playsInline do elemento video, que é responsável por fazer o vídeo ser executado no iOS.
           video.src = URL.createObjectURL(file); // Está atribuindo o caminho do file do input para a propriedade src do elemento video.
 
-          createAndAppendElement(video); // Está chamando/executando a função createAndAppendElement responsável por adicionar o elemento video para o slide e passando o elemento video como parâmetro.
+          createAndAppendElement(video); // Está executando a função createAndAppendElement responsável por adicionar o elemento video para o slide e passando o elemento video como parâmetro.
         }
         // Se não, se o tipo do arquivo incluir a palavra image executa o else if abaixo.
         else if (file.type.includes("image")) {
           const image = document.createElement("img"); // Está criando um elemento img e atribuindo para a constante image.
           image.src = URL.createObjectURL(file); // Está atribuindo o caminho do file do input para a propriedade src do elemento image.
 
-          createAndAppendElement(image); // Está chamando/executando a função createAndAppendElement responsável por adicionar o elemento image para o slide e passando o elemento image como parâmetro.
+          createAndAppendElement(image); // Está executando a função createAndAppendElement responsável por adicionar o elemento image para o slide e passando o elemento image como parâmetro.
         }
         // Se não, se não for um arquivo de imagem ou vídeo executa o else.
         else {
@@ -280,11 +274,11 @@ class Slide {
 
     // Criado uma função chamada inputClick, é responsável por pausar o slide.
     const inputClick = () => {
-      this.pause(); // Está chamando/executando o método pause responsável por pausar o slide.
+      this.pause(); // Está executando o método pause responsável por pausar o slide.
 
       // Adiciona um evento de change(é disparado quando o valor do elemento é alterado) para o elemento inputFile e quando acionado executa a função anônima.
       inputFile.addEventListener("change", () => {
-        this.continue(); // Está chamando/executando o método continue responsável por continuar o slide.
+        this.continue(); // Está executando o método continue responsável por continuar o slide.
 
         // Se o elemento inputFile possuir files, executa o if abaixo.
         if (inputFile.files?.length) {
@@ -383,11 +377,11 @@ class Slide {
 
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado init, é responsável por iniciar os métodos do slide e seus controles.
   private init() {
-    this.addControlsSlide(); // Está chamando/executando o método addControlsSlide.
-    this.addControlsFile(); // Está chamando/executando o método addControlsFile.
-    this.addThumbItems(); // Está chamando/executando o método addThumbItems.
-    this.show(this.index); // Está chamando/executando o método show passando o index como parâmetro.
-    this.addFile();
+    this.addControlsSlide(); // Está executando o método addControlsSlide responsável por adicionar os controles do slide.
+    this.addControlsFile(); // Está executando o método addControlsFil responsável por adicionar os controles do input file.
+    this.addThumbItems(); // Está executando o método addThumbItems responsável por adicionar os thumbs do slide.
+    this.show(this.index); // Está executando o método show passando o index como parâmetro fazendo o slide aparecer.
+    this.addFile(); // Está executando o método addFile responsável por adicionar um novo arquivo ao slide.
   }
 }
 
