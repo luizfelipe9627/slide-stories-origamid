@@ -77,12 +77,14 @@ class Slide {
     if (this.slide instanceof HTMLVideoElement) {
       this.autoVideo(this.slide); // Está chamando/executando o método autoVideo passando o slide como parâmetro.
 
+      // Se o elemento volumeImage existir executa o if.
       if (this.volumeImage) {
         this.volumeImage.src = "./src/assets/volume-off.svg";
       }
     } else {
       this.auto(this.time); // Está chamando/executando o método auto passando o tempo de troca de slide como parâmetro.
 
+      // Se o elemento volume existir executa o if.
       if (this.volume) {
         this.volume.id = "slide-volume-muted"; // Está adicionando a classe volume para o elemento controls.
       }
@@ -115,6 +117,7 @@ class Slide {
 
   // Adiciona um método privado chamado volumeVideo, responsável por mutar e desmutar o vídeo.
   volumeVideo() {
+    // Se o slide for um elemento do tipo HTMLVideoElement executa o if que é uma type guard.
     if (this.slide instanceof HTMLVideoElement) {
       if (this.slide.muted) {
         this.slide.muted = false; // Está atribuindo o valor false para a propriedade muted do elemento video, fazendo o vídeo ficar com som.
@@ -331,9 +334,10 @@ class Slide {
     buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
     buttonFile.innerText = "Enviar"; // Está atribuindo um texto para o elemento buttonFile.
 
-    fileMedia.appendChild(labelFile); // Está adicionando o elemento labelFile como filho do elemento fileMedia.
-    fileMedia.appendChild(inputFile); // Está adicionando o elemento inputFile como filho do elemento fileMedia.
-    fileMedia.appendChild(buttonFile); // Está adicionando o elemento buttonFile como filho do elemento fileMedia.
+    // Adiciona os elementos criados acima como filhos do elemento fileMedia.
+    fileMedia.appendChild(labelFile); 
+    fileMedia.appendChild(inputFile); 
+    fileMedia.appendChild(buttonFile);
   }
 
   // Método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addThumbItems, é responsável por adicionar os thumbs do slide.
