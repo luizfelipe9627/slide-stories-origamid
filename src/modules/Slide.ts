@@ -198,8 +198,8 @@ class Slide {
     }
   }
 
-  // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addControls, é responsável por adicionar os controles do slide.
-  private addControls() {
+  // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addControlsSlide, é responsável por adicionar os controles do slide.
+  private addControlsSlide() {
     const prevButton = document.createElement("button"); // Está criando um elemento button e atribuindo para a constante prevButton.
     prevButton.innerText = "Slide anterior"; // Está atribuindo um texto para o elemento prevButton.
     this.controls.appendChild(prevButton); // Está adicionando o elemento prevButton como filho do elemento controls.
@@ -223,29 +223,6 @@ class Slide {
     // Está criando um evento do tipo pointerup(é disparado quando o mouse ou o dedo é removido do elemento) para os elementos e quando acionados executam uma função.
     prevButton.addEventListener("pointerup", () => this.prev());
     nextButton.addEventListener("pointerup", () => this.next());
-  }
-
-  private addControlsFile() {
-    const fileMedia = document.getElementById("file-media") as HTMLDivElement; // Está atribuindo o elemento que tem o id file-media para a constante fileMedia atribuido o tipo HTMLDivElement.
-
-    const labelFile = document.createElement("label"); // Está criando um elemento label e atribuindo para a constante labelFile.
-    labelFile.setAttribute("for", "file-input"); // Está adicionando o atributo for com o valor file-input para o elemento labelFile.
-    labelFile.id = "file-label"; // Está atribuindo o valor file-button para a propriedade id do elemento labelFile.
-    labelFile.innerText = "Escolher arquivo"; // Está atribuindo um texto para o elemento labelFile.
-
-    const inputFile = document.createElement("input"); // Está criando um elemento input e atribuindo para a constante inputFile.
-    inputFile.type = "file"; // Está atribuindo o valor file para a propriedade type do elemento inputFile.
-    inputFile.id = "file-input"; // Está atribuindo o valor file-input para a propriedade id do elemento inputFile.
-    inputFile.accept = "image/*, video/*"; // Está atribuindo o valor image/*, video/* para a propriedade accept do elemento inputFile.
-
-    const buttonFile = document.createElement("button"); // Está criando um elemento button e atribuindo para a constante buttonFile.
-    buttonFile.id = "file-button"; // Está atribuindo o valor file-button para a propriedade id do elemento buttonFile.
-    buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
-    buttonFile.innerText = "Enviar"; // Está atribuindo um texto para o elemento buttonFile.
-
-    fileMedia.appendChild(labelFile); // Está adicionando o elemento labelFile como filho do elemento fileMedia.
-    fileMedia.appendChild(inputFile); // Está adicionando o elemento inputFile como filho do elemento fileMedia.
-    fileMedia.appendChild(buttonFile); // Está adicionando o elemento buttonFile como filho do elemento fileMedia.
   }
 
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addFile, é responsável por adicionar um novo arquivo ao slide.
@@ -335,6 +312,49 @@ class Slide {
     inputFile.addEventListener("click", () => inputClick());
   }
 
+  // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addControlsFile, é responsável por adicionar os controles do input file.
+  private addControlsFile() {
+    const fileMedia = document.getElementById("file-media") as HTMLDivElement; // Está atribuindo o elemento que tem o id file-media para a constante fileMedia atribuido o tipo HTMLDivElement.
+
+    const labelFile = document.createElement("label"); // Está criando um elemento label e atribuindo para a constante labelFile.
+    labelFile.setAttribute("for", "file-input"); // Está adicionando o atributo for com o valor file-input para o elemento labelFile.
+    labelFile.id = "file-label"; // Está atribuindo o valor file-button para a propriedade id do elemento labelFile.
+    labelFile.innerText = "Escolher arquivo"; // Está atribuindo um texto para o elemento labelFile.
+
+    const inputFile = document.createElement("input"); // Está criando um elemento input e atribuindo para a constante inputFile.
+    inputFile.type = "file"; // Está atribuindo o valor file para a propriedade type do elemento inputFile.
+    inputFile.id = "file-input"; // Está atribuindo o valor file-input para a propriedade id do elemento inputFile.
+    inputFile.accept = "image/*, video/*"; // Está atribuindo o valor image/*, video/* para a propriedade accept do elemento inputFile.
+
+    const buttonFile = document.createElement("button"); // Está criando um elemento button e atribuindo para a constante buttonFile.
+    buttonFile.id = "file-button"; // Está atribuindo o valor file-button para a propriedade id do elemento buttonFile.
+    buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
+    buttonFile.innerText = "Enviar"; // Está atribuindo um texto para o elemento buttonFile.
+
+    fileMedia.appendChild(labelFile); // Está adicionando o elemento labelFile como filho do elemento fileMedia.
+    fileMedia.appendChild(inputFile); // Está adicionando o elemento inputFile como filho do elemento fileMedia.
+    fileMedia.appendChild(buttonFile); // Está adicionando o elemento buttonFile como filho do elemento fileMedia.
+  }
+
+  // Método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addThumbItems, é responsável por adicionar os thumbs do slide.
+  private addThumbItems() {
+    const thumbContainer = document.createElement("div"); // Está criando um elemento div e atribuindo para a constante thumbContainer.
+    thumbContainer.id = "slide-thumb"; // Está atribuindo o valor slide-thumb para a propriedade id do elemento thumbContainer.
+
+    // Cria um loop for que vai de 0 até o tamanho do array de slides, começando do 0 e incrementando de 1 em 1.
+    for (let i = 0; i < this.slides.length; i++) {
+      // Está adicionando a estrutura HTML do elemento thumbContainer.
+      thumbContainer.innerHTML += `
+        <span>
+          <span class="thumb-item"></span>
+        </span>
+      `;
+    }
+
+    this.controls.appendChild(thumbContainer); // Está adicionando o elemento thumbContainer como filho do elemento controls.
+    this.thumbItems = Array.from(document.querySelectorAll(".thumb-item")); // Está atribuindo o valor de um array com todos os elementos que tem a classe thumb-item para a propriedade thumbItems.
+  }
+
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addThumbItemsNew, é responsável por adicionar o novo thumb do slide.
   private addThumbItemsNew() {
     const thumContainer = document.getElementById("slide-thumb"); // Está atribuindo o elemento que tem o id slide-thumb para a constante thumContainer.
@@ -357,28 +377,9 @@ class Slide {
     this.thumbItems = Array.from(document.querySelectorAll(".thumb-item")); // Está atribuindo o valor de um array com todos os elementos que tem a classe thumb-item para a propriedade thumbItems.
   }
 
-  // Método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addThumbItems, é responsável por adicionar os thumbs do slide.
-  private addThumbItems() {
-    const thumbContainer = document.createElement("div"); // Está criando um elemento div e atribuindo para a constante thumbContainer.
-    thumbContainer.id = "slide-thumb"; // Está atribuindo o valor slide-thumb para a propriedade id do elemento thumbContainer.
-
-    // Cria um loop for que vai de 0 até o tamanho do array de slides, começando do 0 e incrementando de 1 em 1.
-    for (let i = 0; i < this.slides.length; i++) {
-      // Está adicionando a estrutura HTML do elemento thumbContainer.
-      thumbContainer.innerHTML += `
-        <span>
-          <span class="thumb-item"></span>
-        </span>
-      `;
-    }
-
-    this.controls.appendChild(thumbContainer); // Está adicionando o elemento thumbContainer como filho do elemento controls.
-    this.thumbItems = Array.from(document.querySelectorAll(".thumb-item")); // Está atribuindo o valor de um array com todos os elementos que tem a classe thumb-item para a propriedade thumbItems.
-  }
-
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado init, é responsável por iniciar os métodos do slide e seus controles.
   private init() {
-    this.addControls(); // Está chamando/executando o método addControls.
+    this.addControlsSlide(); // Está chamando/executando o método addControlsSlide.
     this.addControlsFile(); // Está chamando/executando o método addControlsFile.
     this.addThumbItems(); // Está chamando/executando o método addThumbItems.
     this.show(this.index); // Está chamando/executando o método show passando o index como parâmetro.
