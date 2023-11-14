@@ -1,9 +1,15 @@
+* {
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
 body {
-  font-family: sans-serif;
-  margin: 20px;
-  height: calc(100vh - 50px);
+  max-width: 90vw;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
@@ -30,13 +36,14 @@ video {
 h1 {
   text-align: center;
   font-size: 1.5rem;
+  margin: 20px 0;
 }
 
 #slide {
   display: grid;
   border-radius: 4px;
   overflow: hidden;
-  margin: 20px auto;
+  margin: 0 auto;
   max-width: 800px;
   background-color: #000;
 }
@@ -132,4 +139,74 @@ h1 {
     /* Começa com o valor do transform definido aonde a animação for aplicada. */
     transform: initial;
   }
+}
+
+#file {
+  margin: 20px auto;
+  max-width: 800px;
+  width: 90vw;
+}
+
+#file-buttons {
+  display: flex;
+  align-items: center;
+}
+
+#file-input {
+  display: none;
+}
+
+#file-label {
+  background-color: #B07DFB;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px;
+  width: 60%;
+  text-align: center;
+}
+
+#file-label:hover {
+  background-color: #A56DEB;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#file-button {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 40%;
+}
+
+#file-button:hover {
+  background-color: #27ae60;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#file-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#file-info {
+  display: none;
+  margin-top: 18px;
+  font-weight: 700;
+}
+
+#file-text {
+  width: 22%;
+}
+
+#file-name {
+  font-size: 14px;
+  word-wrap: break-word;
+  width: 78%;
+  font-weight: 500;
 }
