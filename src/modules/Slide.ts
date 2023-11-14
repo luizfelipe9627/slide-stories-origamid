@@ -1,4 +1,4 @@
-import Timeout from "./Timeout.js";
+import Timeout from "./Timeout.js"; // Importa a classe Timeout do arquivo Timeout.js.
 
 // Criado uma classe chamada Slide.
 class Slide {
@@ -225,6 +225,29 @@ class Slide {
     nextButton.addEventListener("pointerup", () => this.next());
   }
 
+  private addControlsFile() {
+    const fileMedia = document.getElementById("file-media") as HTMLDivElement; // Está atribuindo o elemento que tem o id file-media para a constante fileMedia atribuido o tipo HTMLDivElement.
+
+    const labelFile = document.createElement("label"); // Está criando um elemento label e atribuindo para a constante labelFile.
+    labelFile.setAttribute("for", "file-input"); // Está adicionando o atributo for com o valor file-input para o elemento labelFile.
+    labelFile.id = "file-label"; // Está atribuindo o valor file-button para a propriedade id do elemento labelFile.
+    labelFile.innerText = "Escolher arquivo"; // Está atribuindo um texto para o elemento labelFile.
+
+    const inputFile = document.createElement("input"); // Está criando um elemento input e atribuindo para a constante inputFile.
+    inputFile.type = "file"; // Está atribuindo o valor file para a propriedade type do elemento inputFile.
+    inputFile.id = "file-input"; // Está atribuindo o valor file-input para a propriedade id do elemento inputFile.
+    inputFile.accept = "image/*, video/*"; // Está atribuindo o valor image/*, video/* para a propriedade accept do elemento inputFile.
+
+    const buttonFile = document.createElement("button"); // Está criando um elemento button e atribuindo para a constante buttonFile.
+    buttonFile.id = "file-button"; // Está atribuindo o valor file-button para a propriedade id do elemento buttonFile.
+    buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
+    buttonFile.innerText = "Enviar"; // Está atribuindo um texto para o elemento buttonFile.
+
+    fileMedia.appendChild(labelFile); // Está adicionando o elemento labelFile como filho do elemento fileMedia.
+    fileMedia.appendChild(inputFile); // Está adicionando o elemento inputFile como filho do elemento fileMedia.
+    fileMedia.appendChild(buttonFile); // Está adicionando o elemento buttonFile como filho do elemento fileMedia.
+  }
+
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado addFile, é responsável por adicionar um novo arquivo ao slide.
   private addFile() {
     const inputFile = document.getElementById("file-input") as HTMLInputElement; // Está atribuindo o elemento que tem o id file para a constante inputFile.
@@ -236,7 +259,6 @@ class Slide {
     ) as HTMLDivElement; // Está atribuindo todos os elementos que tem a classe slide para a constante slideElements.
 
     const fileInfo = document.getElementById("file-info") as HTMLDivElement; // Está atribuindo o elemento que tem o id file-info para a constante fileInfo.
-    const fileName = document.getElementById("file-name") as HTMLDivElement; // Está atribuindo o elemento que tem o id file-name para a constante fileName.
 
     // Criado uma função chamada createAndAppendElement que recebe um elemento do tipo HTMLElement, é responsável por adicionar o elemento passado como parâmetro para o slide.
     const createAndAppendElement = (element: HTMLElement) => {
@@ -266,8 +288,11 @@ class Slide {
 
           createAndAppendElement(image); // Está chamando/executando a função createAndAppendElement responsável por adicionar o elemento image para o slide e passando o elemento image como parâmetro.
         }
+        // Se não, se não for um arquivo de imagem ou vídeo executa o else.
+        else {
+          buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
+        }
 
-        inputFile.value = ""; // Está atribuindo o valor vazio para a propriedade value do elemento inputFile.
         buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
         fileInfo.style.display = "none"; // Está atribuindo o valor none para a propriedade display do elemento fileInfo.
       }
@@ -279,14 +304,29 @@ class Slide {
 
       // Adiciona um evento de change(é disparado quando o valor do elemento é alterado) para o elemento inputFile e quando acionado executa a função anônima.
       inputFile.addEventListener("change", () => {
-        // Se o elemento inputFile possui arquivos, executa o if abaixo.
-        if (inputFile.files) {
-          fileName.innerText = inputFile.files[0].name; // Está atribuindo o nome do arquivo para o elemento fileName.
-          fileInfo.style.display = "flex"; // Está atribuindo o valor flex para a propriedade display do elemento fileInfo.
-        }
-
         this.continue(); // Está chamando/executando o método continue responsável por continuar o slide.
-        buttonFile.removeAttribute("disabled"); // Está removendo o atributo disabled do elemento buttonFile.
+
+        // Se o elemento inputFile possuir files, executa o if abaixo.
+        if (inputFile.files?.length) {
+          const file = inputFile.files[0]; // Está atribuindo o primeiro arquivo do elemento inputFile para a constante file.
+          fileInfo.style.display = "flex"; // Está atribuindo o valor flex para a propriedade display do elemento fileInfo.
+
+          // Se o tipo do arquivo não incluir a palavra image ou vídeo executa o if abaixo.
+          if (!file.type.includes("image") && !file.type.includes("video")) {
+            // Está criando uma estrutura HTML e colocando dentro do elemento fileText.
+            fileInfo.innerHTML = `
+              <p id="file-text">❌ Formato inválido: <span id="file-name">Selecione um arquivo no formato de imagem ou vídeo.</span></p>
+            `;
+
+            buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
+          } else {
+            buttonFile.removeAttribute("disabled"); // Está removendo o atributo disabled do elemento buttonFile.
+            // Está atribuindo o valor do nome do arquivo para a propriedade innerHTML do elemento fileName.
+            fileInfo.innerHTML = `
+              <p id="file-text">✔️ Arquivo selecionado: <span id="file-name">${inputFile.files[0].name}</span></p>
+            `;
+          }
+        }
       });
     };
 
@@ -339,6 +379,7 @@ class Slide {
   // Criado um método privado(ou seja, só pode ser chamado/executado dentro da classe) chamado init, é responsável por iniciar os métodos do slide e seus controles.
   private init() {
     this.addControls(); // Está chamando/executando o método addControls.
+    this.addControlsFile(); // Está chamando/executando o método addControlsFile.
     this.addThumbItems(); // Está chamando/executando o método addThumbItems.
     this.show(this.index); // Está chamando/executando o método show passando o index como parâmetro.
     this.addFile();

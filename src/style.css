@@ -51,6 +51,8 @@ h1 {
 #slide-elements {
   display: grid;
   grid-area: 1 / 1;
+  justify-items: center;
+  align-items: center;
 }
 
 /* Fala com todos os elementos filhos de #slide-elements. */
@@ -131,7 +133,6 @@ h1 {
 #slide-thumb .thumb-item.paused {
   /* O animation-play-state está sendo usado para pausar a animação. */
   animation-play-state: paused;
-
 }
 
 @keyframes thumb {
@@ -147,7 +148,7 @@ h1 {
   width: 90vw;
 }
 
-#file-buttons {
+#file-media {
   display: flex;
   align-items: center;
 }
@@ -200,13 +201,7 @@ h1 {
   font-weight: 700;
 }
 
-#file-text {
-  width: 22%;
-}
-
 #file-name {
   font-size: 14px;
-  word-wrap: break-word;
-  width: 78%;
   font-weight: 500;
 }

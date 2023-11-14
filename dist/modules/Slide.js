@@ -149,12 +149,29 @@ class Slide {
         prevButton.addEventListener("pointerup", () => this.prev());
         nextButton.addEventListener("pointerup", () => this.next());
     }
+    addControlsFile() {
+        const fileMedia = document.getElementById("file-media");
+        const labelFile = document.createElement("label");
+        labelFile.setAttribute("for", "file-input");
+        labelFile.id = "file-label";
+        labelFile.innerText = "Escolher arquivo";
+        const inputFile = document.createElement("input");
+        inputFile.type = "file";
+        inputFile.id = "file-input";
+        inputFile.accept = "image/*, video/*";
+        const buttonFile = document.createElement("button");
+        buttonFile.id = "file-button";
+        buttonFile.setAttribute("disabled", "disabled");
+        buttonFile.innerText = "Enviar";
+        fileMedia.appendChild(labelFile);
+        fileMedia.appendChild(inputFile);
+        fileMedia.appendChild(buttonFile);
+    }
     addFile() {
         const inputFile = document.getElementById("file-input");
         const buttonFile = document.getElementById("file-button");
         const slideContainer = document.getElementById("slide-elements");
         const fileInfo = document.getElementById("file-info");
-        const fileName = document.getElementById("file-name");
         const createAndAppendElement = (element) => {
             slideContainer.appendChild(element);
             this.slides.push(element);
@@ -174,7 +191,9 @@ class Slide {
                     image.src = URL.createObjectURL(file);
                     createAndAppendElement(image);
                 }
-                inputFile.value = "";
+                else {
+                    buttonFile.setAttribute("disabled", "disabled");
+                }
                 buttonFile.setAttribute("disabled", "disabled");
                 fileInfo.style.display = "none";
             }
@@ -182,12 +201,23 @@ class Slide {
         const inputClick = () => {
             this.pause();
             inputFile.addEventListener("change", () => {
-                if (inputFile.files) {
-                    fileName.innerText = inputFile.files[0].name;
-                    fileInfo.style.display = "flex";
-                }
                 this.continue();
-                buttonFile.removeAttribute("disabled");
+                if (inputFile.files?.length) {
+                    const file = inputFile.files[0];
+                    fileInfo.style.display = "flex";
+                    if (!file.type.includes("image") && !file.type.includes("video")) {
+                        fileInfo.innerHTML = `
+              <p id="file-text">❌ Formato inválido: <span id="file-name">Selecione um arquivo no formato de imagem ou vídeo.</span></p>
+            `;
+                        buttonFile.setAttribute("disabled", "disabled");
+                    }
+                    else {
+                        buttonFile.removeAttribute("disabled");
+                        fileInfo.innerHTML = `
+              <p id="file-text">✔️ Arquivo selecionado: <span id="file-name">${inputFile.files[0].name}</span></p>
+            `;
+                    }
+                }
             });
         };
         buttonFile.addEventListener("click", () => buttonClick());
@@ -220,6 +250,7 @@ class Slide {
     }
     init() {
         this.addControls();
+        this.addControlsFile();
         this.addThumbItems();
         this.show(this.index);
         this.addFile();
