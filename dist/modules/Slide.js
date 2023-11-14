@@ -130,7 +130,7 @@ class Slide {
             }
         }
     }
-    addControls() {
+    addControlsSlide() {
         const prevButton = document.createElement("button");
         prevButton.innerText = "Slide anterior";
         this.controls.appendChild(prevButton);
@@ -148,24 +148,6 @@ class Slide {
         document.addEventListener("touchend", () => this.continue());
         prevButton.addEventListener("pointerup", () => this.prev());
         nextButton.addEventListener("pointerup", () => this.next());
-    }
-    addControlsFile() {
-        const fileMedia = document.getElementById("file-media");
-        const labelFile = document.createElement("label");
-        labelFile.setAttribute("for", "file-input");
-        labelFile.id = "file-label";
-        labelFile.innerText = "Escolher arquivo";
-        const inputFile = document.createElement("input");
-        inputFile.type = "file";
-        inputFile.id = "file-input";
-        inputFile.accept = "image/*, video/*";
-        const buttonFile = document.createElement("button");
-        buttonFile.id = "file-button";
-        buttonFile.setAttribute("disabled", "disabled");
-        buttonFile.innerText = "Enviar";
-        fileMedia.appendChild(labelFile);
-        fileMedia.appendChild(inputFile);
-        fileMedia.appendChild(buttonFile);
     }
     addFile() {
         const inputFile = document.getElementById("file-input");
@@ -223,17 +205,23 @@ class Slide {
         buttonFile.addEventListener("click", () => buttonClick());
         inputFile.addEventListener("click", () => inputClick());
     }
-    addThumbItemsNew() {
-        const thumContainer = document.getElementById("slide-thumb");
-        if (!thumContainer) {
-            return;
-        }
-        thumContainer.insertAdjacentHTML("beforeend", `
-        <span>
-          <span class="thumb-item"></span>
-        </span>
-      `);
-        this.thumbItems = Array.from(document.querySelectorAll(".thumb-item"));
+    addControlsFile() {
+        const fileMedia = document.getElementById("file-media");
+        const labelFile = document.createElement("label");
+        const buttonFile = document.createElement("button");
+        const inputFile = document.createElement("input");
+        labelFile.setAttribute("for", "file-input");
+        labelFile.id = "file-label";
+        labelFile.innerText = "Escolher arquivo";
+        inputFile.type = "file";
+        inputFile.id = "file-input";
+        inputFile.accept = "image/*, video/*";
+        buttonFile.id = "file-button";
+        buttonFile.setAttribute("disabled", "disabled");
+        buttonFile.innerText = "Enviar";
+        fileMedia.appendChild(labelFile);
+        fileMedia.appendChild(inputFile);
+        fileMedia.appendChild(buttonFile);
     }
     addThumbItems() {
         const thumbContainer = document.createElement("div");
@@ -248,8 +236,20 @@ class Slide {
         this.controls.appendChild(thumbContainer);
         this.thumbItems = Array.from(document.querySelectorAll(".thumb-item"));
     }
+    addThumbItemsNew() {
+        const thumbContainer = document.getElementById("slide-thumb");
+        if (!thumbContainer) {
+            return;
+        }
+        thumbContainer.insertAdjacentHTML("beforeend", `
+        <span>
+          <span class="thumb-item"></span>
+        </span>
+      `);
+        this.thumbItems = Array.from(document.querySelectorAll(".thumb-item"));
+    }
     init() {
-        this.addControls();
+        this.addControlsSlide();
         this.addControlsFile();
         this.addThumbItems();
         this.show(this.index);
