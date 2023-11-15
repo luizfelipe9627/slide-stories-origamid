@@ -178,7 +178,7 @@ class Slide {
     this.volumeImage.src = "./src/assets/volume-off.svg";
 
     this.controls.addEventListener("pointerdown", () => this.pause());
-    
+
     document.addEventListener("pointerup", () => this.continue());
     document.addEventListener("touchend", () => this.continue());
 
@@ -210,30 +210,31 @@ class Slide {
           const video = document.createElement("video");
           video.playsInline = true;
           video.src = URL.createObjectURL(file);
+          console.log(inputFile)
           createAndAppendElement(video);
         } else if (file.type.includes("image")) {
           const image = document.createElement("img");
           image.src = URL.createObjectURL(file);
+          image.alt = `${file.name}`
           createAndAppendElement(image);
-        } else {
-          buttonFile.setAttribute("disabled", "disabled");
-        }
+        } 
 
         buttonFile.setAttribute("disabled", "disabled");
         fileInfo.style.display = "none";
+        inputFile.value = "";
       }
     };
 
     const inputClick = () => {
       this.pause();
-
+      
       inputFile.addEventListener("change", () => {
         this.continue();
-
+  
         if (inputFile.files?.length) {
           const file = inputFile.files[0];
           fileInfo.style.display = "flex";
-
+      
           if (!file.type.includes("image") && !file.type.includes("video")) {
             fileInfo.innerHTML = `
               <p id="file-text">❌ Formato inválido: <span id="file-name">Selecione um arquivo no formato de imagem ou vídeo.</span></p>
@@ -246,6 +247,10 @@ class Slide {
             `;
           }
         }
+      });
+
+      inputFile.addEventListener("cancel", () => {
+        this.continue();
       });
     };
 

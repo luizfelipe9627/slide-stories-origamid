@@ -166,18 +166,18 @@ class Slide {
                     const video = document.createElement("video");
                     video.playsInline = true;
                     video.src = URL.createObjectURL(file);
+                    console.log(inputFile);
                     createAndAppendElement(video);
                 }
                 else if (file.type.includes("image")) {
                     const image = document.createElement("img");
                     image.src = URL.createObjectURL(file);
+                    image.alt = `${file.name}`;
                     createAndAppendElement(image);
-                }
-                else {
-                    buttonFile.setAttribute("disabled", "disabled");
                 }
                 buttonFile.setAttribute("disabled", "disabled");
                 fileInfo.style.display = "none";
+                inputFile.value = "";
             }
         };
         const inputClick = () => {
@@ -200,6 +200,9 @@ class Slide {
             `;
                     }
                 }
+            });
+            inputFile.addEventListener("cancel", () => {
+                this.continue();
             });
         };
         buttonFile.addEventListener("click", () => buttonClick());
