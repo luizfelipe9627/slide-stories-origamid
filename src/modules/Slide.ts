@@ -269,6 +269,7 @@ class Slide {
 
         buttonFile.setAttribute("disabled", "disabled"); // Está adicionando o atributo disabled para o elemento buttonFile.
         fileInfo.style.display = "none"; // Está atribuindo o valor none para a propriedade display do elemento fileInfo.
+        inputFile.value = ""; // Está atribuindo o valor vazio para a propriedade value do elemento inputFile.
       }
     };
 
@@ -302,6 +303,11 @@ class Slide {
           }
         }
       });
+
+      // Adiciona um evento de cancel(é disparado quando o usuário cancela a seleção de arquivos) para o elemento inputFile e quando acionado executa a função anônima.
+      inputFile.addEventListener("cancel", () => {
+        this.continue(); // Está executando o método continue responsável por continuar o slide.
+      })
     };
 
     // Adiciona um evento de clique para o elemento buttonFile e quando acionado executa a função handleClick.

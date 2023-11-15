@@ -178,6 +178,7 @@ class Slide {
                 }
                 buttonFile.setAttribute("disabled", "disabled");
                 fileInfo.style.display = "none";
+                inputFile.value = "";
             }
         };
         const inputClick = () => {
@@ -200,6 +201,9 @@ class Slide {
             `;
                     }
                 }
+            });
+            inputFile.addEventListener("cancel", () => {
+                this.continue();
             });
         };
         buttonFile.addEventListener("click", () => buttonClick());

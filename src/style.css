@@ -26,7 +26,6 @@ body.paused {
   touch-action: manipulation;
 }
 
-
 img,
 video {
   display: block;
@@ -44,7 +43,6 @@ h1 {
   display: grid;
   border-radius: 4px;
   overflow: hidden;
-  margin: 0 auto;
   max-width: 800px;
   height: 450px;
   background-color: #000;
@@ -101,7 +99,6 @@ h1 {
   display: none;
 }
 
-
 #slide-thumb {
   display: flex;
   position: absolute;
@@ -145,7 +142,7 @@ h1 {
 }
 
 #file {
-  margin: 20px auto;
+  margin: 20px 0;
   max-width: 800px;
   width: 90vw;
 }
@@ -204,6 +201,7 @@ h1 {
 }
 
 #file-name {
+  word-break: break-all;
   font-size: 14px;
   font-weight: 500;
 }
