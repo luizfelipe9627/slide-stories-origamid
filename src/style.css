@@ -6,7 +6,6 @@
 
 body {
   max-width: 90vw;
-  height: 100vh;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -202,8 +201,7 @@ h1 {
 }
 
 #file-name {
-  word-wrap: break-word;
-  /* word-break: break-all; */
+  word-break: break-all;
   font-size: 14px;
   font-weight: 500;
 }
