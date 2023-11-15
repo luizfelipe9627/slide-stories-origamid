@@ -203,10 +203,9 @@ h1 {
 }
 
 #file-name {
-  /* display: inline;
-  flex-wrap: wrap;
-  word-wrap: break-word; */
-  width: 100%;
+  display: inline;
+  /* flex-wrap: wrap; */
+  /* word-wrap: break-word; */
   /* word-break: break-all; */
   font-size: 14px;
   font-weight: 500;
