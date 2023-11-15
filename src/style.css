@@ -204,7 +204,7 @@ h1 {
 
 #file-name {
   display: inline;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   /* word-wrap: break-word; */
   /* word-break: break-all; */
   font-size: 14px;
