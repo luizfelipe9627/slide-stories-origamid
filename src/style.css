@@ -14,15 +14,11 @@ body {
 }
 
 body.paused {
-  /* O user-select: none impede que o usuário selecione o texto da página. */
   user-select: none;
   -webkit-user-select: none;
-  /* O webkit-touch-callout: none impede que o navegador mostre o menu de contexto quando o usuário segura o dedo sobre um elemento. */
   -webkit-touch-callout: none;
-  /* O text-size-adjust: none impede que o navegador ajuste o tamanho da fonte para melhorar a leitura. */
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
-  /* O touch-action: manipulation impede que o navegador execute ações padrões de toque, como o zoom. */
   touch-action: manipulation;
 }
 
